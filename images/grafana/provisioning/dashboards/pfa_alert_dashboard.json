@@ -1,0 +1,58 @@
+{
+  "title": "PFA - Security Monitoring Dashboard",
+  "version": 1,
+  "schemaVersion": 36,
+  "tags": ["pfa", "security"],
+  "timezone": "browser",
+  "panels": [
+    {
+      "title": "Alertes par Severite",
+      "type": "bargauge",
+      "gridPos": {"x": 0, "y": 0, "w": 4, "h": 4},
+      "targets": [{"expr": "count(suricata_alerts_by_severity{severity=\"1\"}) or vector(0)", "legendFormat": "Critique"}],
+      "options": {"displayMode": "gradient", "orientation": "horizontal", "showUnfilled": true}
+    },
+    {
+      "title": "Timeline des Alertes",
+      "type": "timeseries",
+      "gridPos": {"x": 4, "y": 0, "w": 8, "h": 4},
+      "targets": [{"expr": "rate(suricata_alerts_total[5m])", "legendFormat": "Alertes/s"}]
+    },
+    {
+      "title": "Top 10 IPs Sources",
+      "type": "bargauge",
+      "gridPos": {"x": 12, "y": 0, "w": 4, "h": 4},
+      "targets": [{"expr": "topk(10, sum(suricata_alerts_by_src_ip) by (src_ip))"}]
+    },
+    {
+      "title": "Top Signatures",
+      "type": "table",
+      "gridPos": {"x": 16, "y": 0, "w": 8, "h": 4},
+      "targets": [{"expr": "topk(10, sum(suricata_alerts_by_signature) by (signature))"}]
+    },
+    {
+      "title": "Categories d'Attaques",
+      "type": "bargauge",
+      "gridPos": {"x": 0, "y": 4, "w": 6, "h": 4},
+      "targets": [{"expr": "sum(suricata_alerts_by_category) by (category)"}]
+    },
+    {
+      "title": "Top 10 IPs Destination",
+      "type": "bargauge",
+      "gridPos": {"x": 6, "y": 4, "w": 6, "h": 4},
+      "targets": [{"expr": "topk(10, sum(suricata_alerts_by_dst_ip) by (dst_ip))"}]
+    },
+    {
+      "title": "Total Alertes 24h",
+      "type": "stat",
+      "gridPos": {"x": 12, "y": 4, "w": 4, "h": 4},
+      "targets": [{"expr": "sum(increase(suricata_alerts_total[24h])) or vector(0)"}]
+    },
+    {
+      "title": "Flux Reseau",
+      "type": "timeseries",
+      "gridPos": {"x": 16, "y": 4, "w": 8, "h": 4},
+      "targets": [{"expr": "rate(suricata_flows_total[5m])", "legendFormat": "Flux/s"}]
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decoder name="pfa-suricata-json">
+  <parent>json</parent>
+  <type>json</type>
+  <field name="pfa_collector">suricata</field>
+  <field name="alert_timestamp">\.+</field>
+  <field name="alert_signature">\.+</field>
+  <field name="alert_severity">\.+</field>
+  <field name="alert_src_ip">\.+</field>
+  <field name="alert_dst_ip">\.+</field>
+  <field name="alert_src_port">\.+</field>
+  <field name="alert_dst_port">\.+</field>
+  <field name="alert_proto">\.+</field>
+  <field name="alert_category">\.+</field>
+</decoder>

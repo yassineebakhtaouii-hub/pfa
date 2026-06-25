@@ -1,0 +1,20 @@
+# =============================================================================
+# opensearch.yml - Wazuh Indexer (OpenSearch) Configuration
+# =============================================================================
+node.name: wazuh-indexer
+cluster.name: pfa-wazuh
+path.data: /var/lib/wazuh-indexer
+path.logs: /var/log/wazuh-indexer
+network.host: 0.0.0.0
+http.port: 9200
+discovery.type: single-node
+plugins.security.ssl.http.enabled: false
+plugins.security.ssl.transport.enabled: false
+plugins.security.allow_default_init_securityindex: true
+plugins.security.authcz.admin_dn:
+  - admin
+plugins.security.check_snapshot_restore_write_privileges: true
+plugins.security.enable_snapshot_restore_privilege: true
+plugins.security.nodes_dn:
+  - CN=admin,OU=Wazuh,O=Wazuh,L=California,C=US
+  - CN=node,OU=Wazuh,O=Wazuh,L=California,C=US

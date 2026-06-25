@@ -1,0 +1,12 @@
+# =============================================================================
+# sshd_config - deliberately weak for brute-force testing
+# =============================================================================
+Port 22
+PermitRootLogin yes
+PasswordAuthentication yes
+ChallengeResponseAuthentication no
+UsePAM yes
+X11Forwarding yes
+PrintMotd no
+AcceptEnv LANG LC_*
+Subsystem sftp /usr/lib/openssh/sftp-server

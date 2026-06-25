@@ -1,0 +1,9 @@
+# =============================================================================
+# opensearch_dashboards.yml - Wazuh Dashboard Configuration
+# =============================================================================
+server.host: 0.0.0.0
+server.port: 5601
+opensearch.hosts: ["https://10.0.3.11:9200"]
+opensearch.username: admin
+opensearch.password: PFA_Admin_2026
+opensearch.ssl.verificationMode: none

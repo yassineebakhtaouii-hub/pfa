@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- =========================================================================
+     custom_rules.xml - Wazuh Custom Rules for PFA
+     Maps Suricata alerts to Wazuh security events
+     Rule IDs: 110000-110099
+     ========================================================================= -->
+<group name="pfa-suricata,">
+  <rule id="110000" level="3">
+    <decoded_as>json</decoded_as>
+    <field name="pfa_collector">suricata</field>
+    <description>PFA: Suricata alert received via log collector</description>
+    <options>no_full_log</options>
+  </rule>
+
+  <rule id="110001" level="5">
+    <if_sid>110000</if_sid>
+    <field name="alert_severity">1</field>
+    <description>PFA: Suricata CRITICAL alert from $(alert_src_ip)</description>
+    <group>pfa_critical,</group>
+  </rule>
+
+  <rule id="110002" level="8">
+    <if_sid>110000</if_sid>
+    <field name="alert_severity">2</field>
+    <description>PFA: Suricata HIGH alert - $(alert_signature) from $(alert_src_ip)</description>
+    <group>pfa_high,</group>
+  </rule>
+
+  <rule id="110003" level="12">
+    <if_sid>110000</if_sid>
+    <field name="alert_signature">PFA SSH brute force</field>
+    <description>PFA: SSH brute force attack detected from $(alert_src_ip)</description>
+    <group>pfa_attack,</group>
+  </rule>
+
+  <rule id="110004" level="12">
+    <if_sid>110000</if_sid>
+    <field name="alert_signature">PFA SQL injection</field>
+    <description>PFA: SQL injection attempt detected from $(alert_src_ip)</description>
+    <group>pfa_attack,</group>
+  </rule>
+
+  <rule id="110005" level="10">
+    <if_sid>110000</if_sid>
+    <field name="alert_signature">PFA Reverse shell</field>
+    <description>PFA: Reverse shell attempt detected from $(alert_src_ip)</description>
+    <group>pfa_attack,</group>
+  </rule>
+
+  <rule id="110006" level="8">
+    <if_sid>110000</if_sid>
+    <field name="alert_signature">PFA Nmap SYN scan</field>
+    <description>PFA: Network reconnaissance from $(alert_src_ip)</description>
+    <group>pfa_recon,</group>
+  </rule>
+
+  <rule id="110010" level="7">
+    <if_sid>110000</if_sid>
+    <field name="alert_severity">3</field>
+    <description>PFA: Suricata MEDIUM alert - $(alert_signature) from $(alert_src_ip)</description>
+    <group>pfa_medium,</group>
+  </rule>
+</group>

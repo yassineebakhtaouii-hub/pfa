@@ -1,0 +1,27 @@
+# =============================================================================
+# datasource.yml - Grafana Data Sources (PFA)
+# =============================================================================
+apiVersion: 1
+datasources:
+  - name: Prometheus
+    type: prometheus
+    access: proxy
+    url: http://10.0.3.20:9090
+    isDefault: true
+    editable: false
+
+  - name: Wazuh-Indexer
+    type: opensearch
+    access: proxy
+    url: https://10.0.3.11:9200
+    database: wazuh-alerts-*
+    basicAuth: true
+    basicAuthUser: admin
+    secureJsonData:
+      basicAuthPassword: PFA_Admin_2026
+    jsonData:
+      tlsSkipVerify: true
+      timeField: timestamp
+      interval: Daily
+      esVersion: 7.10.0
+    editable: false
