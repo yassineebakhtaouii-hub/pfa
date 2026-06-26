@@ -8,5 +8,5 @@ done
 ip route replace default via 10.0.1.254 dev eth0 2>/dev/null || true
 echo "[ENTRYPOINT] Suricata config check..."
 suricata -T -c /etc/suricata/suricata.yaml 2>&1 && echo "[ENTRYPOINT] Config OK"
-echo "[ENTRYPOINT] Starting Suricata on eth0 (pcap mode)..."
-exec suricata -c /etc/suricata/suricata.yaml -i eth0
+echo "[ENTRYPOINT] Starting Suricata..."
+exec suricata -c /etc/suricata/suricata.yaml -i eth0 --set vars.address-groups.HOME_NET=[10.0.1.0/24]

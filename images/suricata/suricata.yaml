@@ -1,0 +1,48 @@
+%YAML 1.1
+---
+vars:
+  address-groups:
+    HOME_NET: '[10.0.1.0/24,10.0.2.0/24,10.0.3.0/24]'
+    EXTERNAL_NET: any
+    HTTP_SERVERS: '[10.0.1.10]'
+    SQL_SERVERS: '[10.0.2.10]'
+default-rule-path: /etc/suricata/rules
+rule-files:
+  - custom.rules
+af-packet:
+  - interface: eth0
+    cluster-id: 99
+    cluster-type: cluster_flow
+    defrag: yes
+    use-mmap: yes
+    tpacket-v3: yes
+promisc-mode: yes
+default-log-dir: /var/log/suricata
+outputs:
+  - eve-log:
+      enabled: yes
+      filetype: regular
+      filename: eve.json
+      types:
+        - alert
+        - http
+        - dns
+        - tls
+        - ssh
+        - flow
+  - fast:
+      enabled: yes
+      filename: fast.log
+      append: yes
+  - stats:
+      enabled: yes
+      filename: stats.log
+      interval: 300
+libhtp:
+  default-config:
+    request-body-minimal-inspect-size: 4096
+    request-body-inspect-window: 4096
+    response-body-minimal-inspect-size: 4096
+    response-body-inspect-window: 4096
+classification-file: /etc/suricata/classification.config
+reference-config-file: /etc/suricata/reference.config
